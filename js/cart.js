@@ -43,14 +43,15 @@ document.body.onload = function() {
 
     let main = document.querySelector('main');
     main.appendChild(div);
-
-    if (window.location.pathname.includes("index.html") || window.location.pathname === "/" ) {
+    // si el cart es llamado desde index o la page principal cambia las rutas 
+    if (window.location.pathname.includes("index.html") || window.location.href.endsWith("Mundo-Literario/")) {
+        console.log(window.location.pathname === "/" )
         const btnAlCatalogo = document.getElementById("btn-alCatalogo");
         btnAlCatalogo.href =" ./pages/store.html";
         const imgCartEmpty = document.querySelector(".img-empty-car img");
         imgCartEmpty.src = " ./images/assets/cart-empty.png";
         const imgCartFull = document.querySelector(".img-full-car img");
-        imgCartEmpty.src = " ./images/assets/cart-full.png";
+        imgCartFull.src = " ./images/assets/cart-full.png";
     }
     
     let closeBtn = document.querySelector('.cartTab .close');
@@ -113,7 +114,7 @@ const refreshCartHTML = () => {
             newITem.innerHTML =
                         `
                         <div class="image">
-                            <img src="${info.imagen}" alt="${info.nombre}"/>
+                            <img src="${info.imagen}" alt="${info.nombre}" class="imgs-cart"/>
                         </div>
                         <div class="name">${info.nombre}</div>
                         <div class="quantity">
@@ -135,7 +136,16 @@ const refreshCartHTML = () => {
 
             listHTML.appendChild(newITem);
         });
-
+        // si el cart es llamado desde index o la page principal todas las imagenes con ruta absoluta son modificadas
+        if (window.location.pathname.includes("index.html") || window.location.href.endsWith("Mundo-Literario/")) {
+            const arrayImgs = document.querySelectorAll(".imgs-cart");
+            console.log(arrayImgs);
+            arrayImgs.forEach(item => {
+                if (item.src.startsWith("../")) {
+                    item.src = item.imagen.replace("../", "./");
+                }
+            });
+        }
          
     } else {
         carritoVacio.style.display = "flex";
