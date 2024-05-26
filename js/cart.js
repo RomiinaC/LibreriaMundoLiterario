@@ -111,10 +111,20 @@ const refreshCartHTML = () => {
 
             let newITem = document.createElement('div');
             newITem.classList.add('item');
+            let imageSrc = info.imagen;
+
+        // si el cart es llamado desde index o la page principal todas las imagenes con ruta absoluta son modificadas
+            if (window.location.pathname.includes("index.html") || window.location.href.endsWith("LibreriaMundoLiterario/")) {
+                // Cambia '../' a './' solo para mostrarlo
+                if (imageSrc.startsWith("../")) {
+                    imageSrc = imageSrc.replace("../", "./");
+                }
+            }
+
             newITem.innerHTML =
                         `
                         <div class="image">
-                            <img src="${info.imagen}" alt="${info.nombre}" class="imgs-cart"/>
+                            <img src="${imageSrc}" alt="${info.nombre}" class="imgs-cart"/>
                         </div>
                         <div class="name">${info.nombre}</div>
                         <div class="quantity">
@@ -135,18 +145,7 @@ const refreshCartHTML = () => {
                         //info.id en div para hacer funcionar la suma y la quita de productos, va al else if de la funcion setproductincart else if(buttonClick.classList.contains('plus')){quantity++; setProductInCart(idProduct, quantity, position);} como es igual a plus pasa  a ||
 
             listHTML.appendChild(newITem);
-        });
-        // si el cart es llamado desde index o la page principal todas las imagenes con ruta absoluta son modificadas
-        if (window.location.pathname.includes("index.html") || window.location.href.endsWith("Mundo-Literario/")) {
-            const arrayImgs = document.querySelectorAll(".imgs-cart");
-            console.log(arrayImgs);
-            arrayImgs.forEach(item => {
-                if (item.src.startsWith("../")) {
-                    item.src = item.imagen.replace("../", "./");
-                }
-            });
-        }
-         
+        }); 
     } else {
         carritoVacio.style.display = "flex";
         listHTML.classList.add("disabled");
