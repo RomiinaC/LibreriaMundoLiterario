@@ -44,7 +44,7 @@ document.body.onload = function() {
     let main = document.querySelector('main');
     main.appendChild(div);
     // si el cart es llamado desde index o la page principal cambia las rutas 
-    if (window.location.pathname.includes("index.html") || window.location.href.endsWith("Mundo-Literario/")) {
+    if (window.location.pathname.includes("index.html") || window.location.href.endsWith("LibreriaMundoLiterario/")) {
         console.log(window.location.pathname === "/" )
         const btnAlCatalogo = document.getElementById("btn-alCatalogo");
         btnAlCatalogo.href =" ./pages/store.html";
